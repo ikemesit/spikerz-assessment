@@ -1,0 +1,38 @@
+<aside [class.collapsed]="isCollapsed" class="sidebar rounded-lg h-screen">
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    <button matIconButton (click)="toggleSidebar()" class="toggle-btn">
+      <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+    </button>
+
+    @for( item of navItems; track item.label ) {
+    <a
+      class="nav-item"
+      [class.collapsed]="isCollapsed"
+      [matTooltip]="item.label"
+      [matTooltipDisabled]="!isCollapsed"
+      matTooltipPosition="right"
+    >
+      <mat-icon class="m-0 p-0">{{ item.icon }}</mat-icon>
+      @if (!isCollapsed) {
+      <span class="nav-label">{{ item.label }}</span>
+      }
+    </a>
+    }
+  </nav>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+    <div class="footer-container" [class.collapsed]="isCollapsed">
+      <div class="user-avatar">
+        <mat-icon>settings</mat-icon>
+      </div>
+
+      @if (!isCollapsed) {
+      <div class="user-info">
+        <p>Lorem</p>
+      </div>
+      }
+    </div>
+  </div>
+</aside>
