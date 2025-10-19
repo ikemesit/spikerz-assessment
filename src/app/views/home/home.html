@@ -1,1 +1,33 @@
-<p>home works!</p>
+<div class="w-full flex gap-4">
+  <div class="w-140 rounded-lg flex flex-col bg-white overflow-hidden h-screen">
+    <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div class="py-5">
+        <h4 class="text-xl font-bold text-green-600 m-0">Description</h4>
+        <p class="text-sm text-gray-500 m-0 mt-1">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit eius aspernatur
+          quibusdam voluptatibus corporis. Recusandae maxime tenetur optio at, ex hic eveniet
+          cupiditate, fugiat illum, non sint nulla architecto asperiores.
+        </p>
+      </div>
+
+      <div class="py-5">
+        <h4 class="text-xl font-bold text-green-600 m-0">Extras</h4>
+        <p class="text-sm text-gray-500 m-0 mt-1 leading-relaxed">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit eius aspernatur
+          quibusdam voluptatibus corporis. Recusandae maxime tenetur optio at, ex hic eveniet
+          cupiditate, fugiat illum, non sint nulla architecto asperiores.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        @for (item of items; track $index) {
+
+        <app-server-info-panel [item]="item"></app-server-info-panel>
+
+        }
+      </div>
+    </div>
+  </div>
+
+  <app-diagram-display></app-diagram-display>
+</div>

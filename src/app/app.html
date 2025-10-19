@@ -1,4 +1,7 @@
-<app-layout>
+<div class="flex gap-4 min-h-screen overflow-hidden bg-gray-100 p-4">
   <app-side-nav></app-side-nav>
-  <router-outlet />
-</app-layout>
+
+  <div [ngClass]="isCollapsed ? 'w-11/12' : 'w-10/12'" class="flex-1 flex h-screen ml-2">
+    <router-outlet></router-outlet>
+  </div>
+</div>
