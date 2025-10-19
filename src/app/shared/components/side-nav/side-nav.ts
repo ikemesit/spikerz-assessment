@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { NavItem } from '../../interfaces/nav-item.interface';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-side-nav',
-  imports: [MatIcon, MatTooltip],
+  imports: [MatIcon, MatTooltip, NgClass],
   templateUrl: './side-nav.html',
   styleUrl: './side-nav.scss',
 })

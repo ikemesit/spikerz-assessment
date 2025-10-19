@@ -1,1 +1,46 @@
-<p>home works!</p>
+<div class="w-full flex gap-4">
+  <div class="w-140 rounded-lg flex flex-col bg-white overflow-hidden h-screen">
+    <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div class="py-5">
+        <h4 class="text-xl font-bold text-green-600 m-0">Description</h4>
+        <p class="text-sm text-gray-500 m-0 mt-1">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit eius aspernatur
+          quibusdam voluptatibus corporis. Recusandae maxime tenetur optio at, ex hic eveniet
+          cupiditate, fugiat illum, non sint nulla architecto asperiores.
+        </p>
+      </div>
+
+      <div class="py-5">
+        <h4 class="text-xl font-bold text-green-600 m-0">Description</h4>
+        <p class="text-sm text-gray-500 m-0 mt-1">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit eius aspernatur
+          quibusdam voluptatibus corporis. Recusandae maxime tenetur optio at, ex hic eveniet
+          cupiditate, fugiat illum, non sint nulla architecto asperiores.
+        </p>
+      </div>
+
+      @for (item of middleColumnItems; track $index) {
+      <div
+        class="flex items-center bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow duration-200"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0"
+        >
+          <mat-icon class="text-indigo-600">article</mat-icon>
+        </div>
+
+        <div class="flex-1 ml-4">
+          <h3 class="text-base font-semibold text-gray-900 m-0">{{ item.title }}</h3>
+          <p class="text-sm text-gray-600 m-0 mt-1">{{ item.description }}</p>
+        </div>
+
+        <button mat-icon-button class="text-gray-400">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+
+  <app-diagram-display></app-diagram-display>
+</div>
