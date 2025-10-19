@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-// TODO: Remove unused tokens
+@use 'sass:map';
 
 /* ---------- Palette (hex values) ---------- */
 $palette: (
@@ -31,14 +31,14 @@ $palette: (
 
 /* ---------- Semantic tokens referencing palette ---------- */
 $semantic: (
-  color-bg: map-get($palette, gray-50),
-  color-surface: map-get($palette, gray-100),
-  color-border: map-get($palette, gray-200),
-  color-text: map-get($palette, gray-900),
-  color-muted: map-get($palette, gray-600),
-  color-primary: map-get($palette, green-600),
-  color-accent: map-get($palette, indigo-600),
-  color-danger: map-get($palette, red-500),
+  color-bg: map.get($palette, gray-50),
+  color-surface: map.get($palette, gray-100),
+  color-border: map.get($palette, gray-200),
+  color-text: map.get($palette, gray-900),
+  color-muted: map.get($palette, gray-600),
+  color-primary: map.get($palette, green-600),
+  color-accent: map.get($palette, indigo-600),
+  color-danger: map.get($palette, red-500),
 );
 
 /* ---------- Spacing scale ---------- */
@@ -56,26 +56,8 @@ $space: (
   // 24px
   8: 2rem,
   // 32px
-  12: 3rem // 48px,,,,,,,
+  12: 3rem,
 );
-
-// /* ---------- Typography ---------- */
-// $typography: (
-//   font-sans: -apple-system,
-//   BlinkMacSystemFont,
-//   'Segoe UI',
-//   Roboto,
-//   'Helvetica Neue',
-//   Arial,
-//   'Noto Sans',
-//   'Apple Color Emoji',
-//   'Segoe UI Emoji',
-//   'Segoe UI Symbol',
-//   font-size-base: 1rem,
-//   font-size-sm: 0.875rem,
-//   font-size-lg: 1.125rem,
-//   line-height-base: 1.5,
-// );
 
 /* ---------- Radii & sizes ---------- */
 $radii: (
@@ -88,15 +70,6 @@ $sizes: (
   size-diagram-width: 650px,
   size-diagram-height: 300px,
 );
-
-/* ---------- Elevations (shadows) ---------- */
-// $elevations: (
-//   elevation-0: none,
-//   elevation-1: 0 1px 2px rgba(16, 24, 40, 0.05),
-//   0 1px 3px rgba(16, 24, 40, 0.06),
-//   elevation-2: 0 4px 6px rgba(16, 24, 40, 0.08),
-//   elevation-3: 0 10px 20px rgba(16, 24, 40, 0.12),
-// );
 
 /* ---------- Motion ---------- */
 $motion: (
@@ -130,11 +103,6 @@ $breakpoints: (
     --space-#{$k}: #{$v};
   }
 
-  /* typography */
-  // @each $k, $v in $typography {
-  //   --#{$k}: #{$v};
-  // }
-
   /* radii */
   @each $k, $v in $radii {
     --#{$k}: #{$v};
@@ -144,11 +112,6 @@ $breakpoints: (
   @each $k, $v in $sizes {
     --#{$k}: #{$v};
   }
-
-  /* elevations */
-  // @each $k, $v in $elevations {
-  //   --#{$k}: #{$v};
-  // }
 
   /* motion */
   @each $k, $v in $motion {
@@ -168,7 +131,7 @@ $breakpoints: (
 
 @function space($key) {
   @if map-has-key($space, $key) {
-    @return map-get($space, $key);
+    @return map.get($space, $key);
   }
   @return null;
 }
