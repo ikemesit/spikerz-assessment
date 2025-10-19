@@ -5,45 +5,44 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AssetRisk } from '../../interfaces/asset-risk.interface';
+import { AssetRiskStore } from '../../../core/stores/asset-risk';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-asset-risk-table',
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatTabsModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatTabsModule,
+    MatProgressSpinner,
+  ],
   templateUrl: './asset-risk-table.html',
   styleUrl: './asset-risk-table.scss',
 })
 export class AssetRiskTable {
   displayedColumns: string[] = ['icon', 'asset', 'risk'];
+  dataSource = signal<AssetRisk[]>([]);
 
-  dataSource = signal<AssetRisk[]>([
-    {
-      icon: 'server',
-      name: 'Loremipsumdolorsit',
-      ipAddress: '192.168.1.1',
-      riskLevel: 'Critical',
-    },
-    {
-      icon: 'server',
-      name: 'Loremipsumdolorsit002',
-      ipAddress: '192.168.1.2',
-      riskLevel: 'Critical',
-    },
-  ]);
+  constructor(public store: AssetRiskStore) {
+    this.store.load();
+    this.dataSource.set(this.store.items());
+  }
 
   pageSize = signal(2);
   currentPage = signal(0);
 
-  totalPages = () => Math.ceil(this.dataSource().length / this.pageSize());
+  totalPages = () => Math.ceil(this.store.count() / this.pageSize());
 
   paginatedData = () => {
     const start = this.currentPage() * this.pageSize();
     const end = start + this.pageSize();
-    return this.dataSource().slice(start, end);
+    return this.store.items().slice(start, end);
   };
 
   getShowingStart = () => this.currentPage() * this.pageSize() + 1;
-  getShowingEnd = () =>
-    Math.min((this.currentPage() + 1) * this.pageSize(), this.dataSource().length);
+  getShowingEnd = () => Math.min((this.currentPage() + 1) * this.pageSize(), this.store.count());
 
   nextPage(): void {
     if (this.currentPage() < this.totalPages() - 1) {
