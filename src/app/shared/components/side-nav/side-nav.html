@@ -1,0 +1,78 @@
+<aside
+  [ngClass]="isCollapsed ? 'w-16' : 'w-64'"
+  class="flex flex-col bg-white text-gray-800 transition-all duration-300 ease-in-out flex-shrink-0 relative rounded-lg pt-4 h-screen"
+>
+  <button
+    mat-icon-button
+    (click)="toggleSidebar()"
+    [ngClass]="isCollapsed ? 'mx-auto' : ''"
+    class="text-white cursor-pointer absolute top-6 -right-2 rounded-full bg-green-600 flex justify-center items-center border-2 border-gray-200"
+  >
+    <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+  </button>
+
+  <!-- Navigation Items -->
+  <nav class="flex-1 overflow-y-auto" [ngClass]="isCollapsed ? 'p-2 py-4' : 'p-4'">
+    @for (item of navItems; track $index) {
+    <a
+      href="#"
+      [matTooltip]="item.label"
+      [matTooltipDisabled]="!isCollapsed"
+      matTooltipPosition="right"
+      class="flex items-center px-4 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
+    >
+      <mat-icon class="flex-shrink-0">{{ item.icon }}</mat-icon>
+
+      @if (!isCollapsed) {
+      <span class="ml-3 text-sm font-medium">{{ item.label }}</span>
+      }
+    </a>
+    }
+  </nav>
+
+  <nav [ngClass]="isCollapsed ? 'p-2 py-4' : 'p-4'">
+    <a
+      href="#"
+      [matTooltip]="'lorem'"
+      [matTooltipDisabled]="!isCollapsed"
+      matTooltipPosition="right"
+      class="flex items-center px-4 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
+    >
+      <mat-icon class="flex-shrink-0">settings</mat-icon>
+
+      @if (!isCollapsed) {
+      <span class="ml-3 text-sm font-medium">Lorem</span>
+      }
+    </a>
+
+    <a
+      href="#"
+      [matTooltip]="'lorem'"
+      [matTooltipDisabled]="!isCollapsed"
+      matTooltipPosition="right"
+      class="flex items-center p-4 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
+    >
+      <mat-icon class="flex-shrink-0">picture_in_picture</mat-icon>
+
+      @if (!isCollapsed) {
+      <span class="ml-3 text-sm font-medium">Lorem</span>
+      }
+    </a>
+  </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="p-4">
+    <div [ngClass]="isCollapsed ? 'justify-center' : ''" class="flex items-center">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+
+      @if (!isCollapsed) {
+      <div class="ml-3">
+        <p class="text-sm font-semibold m-0">Lorem</p>
+        <p class="text-xs text-gray-300 m-0 mt-1">Lorem</p>
+      </div>
+      }
+    </div>
+  </div>
+</aside>
