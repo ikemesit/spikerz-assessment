@@ -7,11 +7,6 @@ cdk-accordion-item {
   display: block;
 }
 
-/* Optional: Add subtle transition to the header on hover */
-.cursor-pointer {
-  transition: background-color 200ms ease-in-out;
-}
-
 .accordion-content {
   display: grid;
   grid-template-rows: 0fr;
@@ -33,7 +28,6 @@ cdk-accordion-item {
   opacity: 1;
 }
 
-/* Base styles */
 cdk-accordion-item {
   display: block;
 }

@@ -60,6 +60,7 @@ export class Diagram {
     const dia = new go.Diagram({
       'undoManager.isEnabled': true,
       isReadOnly: true,
+      layout: new go.TreeLayout({ angle: 0, layerSpacing: 35 }),
       model: new go.GraphLinksModel({
         nodeKeyProperty: 'id',
         linkKeyProperty: 'key',
@@ -80,6 +81,11 @@ export class Diagram {
         background: 'transparent',
       }).bind('source', 'icon'),
       new go.TextBlock({ margin: 8, editable: false }).bindTwoWay('text', 'text')
+    );
+
+    dia.linkTemplate = new go.Link({ routing: go.Routing.Orthogonal, corner: 5 }).add(
+      new go.Shape({ strokeWidth: 1, stroke: '#555' }),
+      new go.Shape({ toArrow: 'Standard', strokeWidth: 0 })
     );
 
     return dia;
