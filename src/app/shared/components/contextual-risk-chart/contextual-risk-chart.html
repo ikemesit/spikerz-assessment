@@ -1,0 +1,26 @@
+<div class="flex items-center justify-center min-h-24">
+  <div class="bg-white rounded-3xl shadow-sm p-6 w-full">
+    <h2 class="text-lg font-semibold text-gray-600 mb-4">Contextual Risk</h2>
+
+    <div class="flex items-center justify-between">
+      <!-- Legend -->
+      <div class="flex flex-col space-y-4">
+        @for (risk of riskData(); track risk.level) {
+        <div class="flex items-center space-x-3">
+          <div class="w-3 h-3 rounded-full" [style.background-color]="risk.color"></div>
+          <span class="text-lg font-bold text-gray-800">{{ risk.count }}</span>
+          <span class="text-md text-gray-600">{{ risk.level }}</span>
+        </div>
+        }
+      </div>
+
+      <!-- Chart -->
+      <div class="relative w-32 h-32">
+        <canvas #donutCanvas></canvas>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span class="text-3xl font-bold text-gray-600">{{ totalCritical() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
