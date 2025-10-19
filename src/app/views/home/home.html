@@ -19,13 +19,21 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-4">
-        @for (item of items; track $index) {
-
-        <app-server-info-panel [item]="item"></app-server-info-panel>
-
-        }
+      @if(serverInfoStore.loading()) {
+      <div class="w-full flex justify-center items-center py-10 min-h-60">
+        <mat-progress-spinner
+          mode="indeterminate"
+          [diameter]="30"
+          [strokeWidth]="4"
+        ></mat-progress-spinner>
+        <span class="text-sm text-gray-500 ml-2">Loading...</span>
       </div>
+      } @else { @for (item of serverInfoStore.items(); track $index) {
+      <div class="flex flex-col gap-4">
+        <app-server-info-panel [item]="item"></app-server-info-panel>
+      </div>
+
+      } }
     </div>
   </div>
 
