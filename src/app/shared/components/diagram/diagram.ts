@@ -13,13 +13,42 @@ import { NodeLayout } from '../../enums/node-layout.enum';
 export class Diagram {
   public state = {
     diagramNodeData: [
-      { id: 'Alpha', text: 'Alpha', color: 'lightblue', icon: '/assets/icons/star.svg' },
-      { id: 'Beta', text: 'Beta', color: 'orange', icon: '/assets/icons/circle.svg' },
-      { id: 'Gamma', text: 'Gamma', color: 'lightgreen', icon: '/assets/icons/square.svg' },
+      {
+        id: 'node1',
+        text: 'LoremIpsum',
+        color: 'lightblue',
+        icon: 'user.png',
+      },
+      {
+        id: 'node2',
+        text: 'LoremIpsum2',
+        color: 'orange',
+        icon: 'server.png',
+      },
+      {
+        id: 'node3',
+        text: 'LoremIpsum3',
+        color: 'lightgreen',
+        icon: 'server.png',
+      },
+      {
+        id: 'node4',
+        text: 'LoremIpsum4',
+        color: 'lightgreen',
+        icon: 'server-with-notification.png',
+      },
+      {
+        id: 'node5',
+        text: 'LoremIpsum5',
+        color: 'lightgreen',
+        icon: 'server-with-notification.png',
+      },
     ],
     diagramLinkData: [
-      { key: 1, from: 'Alpha', to: 'Beta' },
-      { key: 2, from: 'Beta', to: 'Gamma' },
+      { key: 1, from: 'node1', to: 'node2' },
+      { key: 2, from: 'node2', to: 'node3' },
+      { key: 3, from: 'node3', to: 'node4' },
+      { key: 4, from: 'node3', to: 'node5' },
     ],
     diagramModelData: { prop: 'value' },
     skipsDiagramUpdate: false,
@@ -38,18 +67,19 @@ export class Diagram {
     });
 
     dia.nodeTemplate = new go.Node(NodeLayout.Vertical, {
+      locationSpot: go.Spot.Center,
+      movable: false,
       mouseHover: (e, obj) => console.log('hovered', obj),
       mouseLeave: (e, obj) => console.log('left', obj),
     }).add(
-      // new go.Shape('RoundedRectangle', { stroke: null }).bind('fill', 'color'),
       new go.Picture({
-        width: 24,
-        height: 24,
+        width: 48,
+        height: 48,
         margin: 6,
-        imageStretch: go.GraphObject.Uniform, // keep aspect ratio
+        imageStretch: go.ImageStretch.Uniform,
         background: 'transparent',
-      }).bind(new go.Binding('source', 'icon')),
-      new go.TextBlock({ margin: 8, editable: true }).bindTwoWay('text', 'text')
+      }).bind('source', 'icon'),
+      new go.TextBlock({ margin: 8, editable: false }).bindTwoWay('text', 'text')
     );
 
     return dia;
