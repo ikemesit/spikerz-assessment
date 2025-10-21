@@ -1,25 +1,52 @@
 <aside
-  [ngClass]="isCollapsed ? 'w-16' : 'w-64'"
-  class="flex flex-col bg-white text-gray-800 transition-all duration-300 ease-in-out flex-shrink-0 relative rounded-lg pt-4 h-screen"
+  [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
+  class="flex flex-col bg-white text-gray-800 transition-all group duration-300 ease flex-shrink-0 relative rounded-lg p-4 h-screen"
 >
-  <button
-    mat-icon-button
-    (click)="toggleSidebar()"
-    [ngClass]="isCollapsed ? 'mx-auto' : ''"
-    class="text-white cursor-pointer absolute top-6 -right-2 rounded-full bg-green-600 flex justify-center items-center border-2 border-gray-200"
+  <div
+    class="w-full transition-height duration-300 ease flex justify-center items-center"
+    [ngClass]="isCollapsed ? 'h-12' : 'h-4'"
   >
-    <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-  </button>
+    <button
+      mat-icon-button
+      (click)="toggleSidebar()"
+      [ngClass]="isCollapsed ? 'mx-auto invisible group-hover:visible' : ''"
+      class="text-white cursor-pointer absolute top-8 -right-4 rounded-full bg-green-600 flex justify-center items-center border-2 border-gray-200"
+    >
+      <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+    </button>
+
+    @if (isCollapsed) {
+    <img ngSrc="icons/logo.png" width="30" height="30" class="m-0" alt="logo" />
+    }
+  </div>
 
   <!-- Navigation Items -->
-  <nav class="flex-1 overflow-y-auto" [ngClass]="isCollapsed ? 'p-2 py-4' : 'p-4'">
+  <nav class="flex-1 overflow-y-auto mt-4">
     @for (item of navItems; track $index) {
     <a
       href="#"
       [matTooltip]="item.label"
       [matTooltipDisabled]="!isCollapsed"
       matTooltipPosition="right"
-      class="flex items-center px-4 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
+      class="flex items-center px-3 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-green-100 hover:text-gray-900"
+    >
+      <mat-icon class="flex-shrink-0">{{ item.icon }}</mat-icon>
+
+      @if (!isCollapsed) {
+      <span class="ml-3 text-sm font-normal">{{ item.label }}</span>
+      }
+    </a>
+    }
+  </nav>
+
+  <div>
+    @for (item of navFooterItems; track $index) {
+    <a
+      href="#"
+      [matTooltip]="'lorem'"
+      [matTooltipDisabled]="!isCollapsed"
+      matTooltipPosition="right"
+      class="flex items-center px-3 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-gray-100 hover:text-gray-900"
     >
       <mat-icon class="flex-shrink-0">{{ item.icon }}</mat-icon>
 
@@ -28,51 +55,22 @@
       }
     </a>
     }
-  </nav>
+  </div>
 
-  <nav [ngClass]="isCollapsed ? 'p-2 py-4' : 'p-4'">
-    <a
-      href="#"
-      [matTooltip]="'lorem'"
-      [matTooltipDisabled]="!isCollapsed"
-      matTooltipPosition="right"
-      class="flex items-center px-4 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
-    >
-      <mat-icon class="flex-shrink-0">settings</mat-icon>
-
-      @if (!isCollapsed) {
-      <span class="ml-3 text-sm font-medium">Lorem</span>
-      }
-    </a>
-
-    <a
-      href="#"
-      [matTooltip]="'lorem'"
-      [matTooltipDisabled]="!isCollapsed"
-      matTooltipPosition="right"
-      class="flex items-center p-4 text-gray-400 no-underline rounded-lg transition-colors duration-300 cursor-pointer hover:bg-green-100 hover:text-gray-900"
-    >
-      <mat-icon class="flex-shrink-0">picture_in_picture</mat-icon>
-
-      @if (!isCollapsed) {
-      <span class="ml-3 text-sm font-medium">Lorem</span>
-      }
-    </a>
-  </nav>
-
-  <!-- Sidebar Footer -->
-  <div class="p-4">
-    <div [ngClass]="isCollapsed ? 'justify-center' : ''" class="flex items-center">
-      <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-        <mat-icon>account_circle</mat-icon>
+  <button class="p-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <div class="rounded-full flex items-center flex-shrink-0">
+        <mat-icon class="text-2xl">account_circle</mat-icon>
       </div>
 
       @if (!isCollapsed) {
       <div class="ml-3">
-        <p class="text-sm font-semibold m-0">Lorem</p>
-        <p class="text-xs text-gray-300 m-0 mt-1">Lorem</p>
+        <p class="text-md font-semibold m-0">Lorem</p>
+        <p class="text-sm text-gray-300 m-0 mt-1">Lorem</p>
       </div>
       }
     </div>
-  </div>
+
+    <mat-icon>logout</mat-icon>
+  </button>
 </aside>
