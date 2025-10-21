@@ -1,5 +1,5 @@
 <aside
-  [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
+  [ngClass]="isCollapsed ? 'w-18' : 'w-64'"
   class="flex flex-col bg-white text-gray-800 transition-all group duration-300 ease flex-shrink-0 relative rounded-lg p-4 h-screen"
 >
   <div
@@ -28,7 +28,7 @@
       [matTooltip]="item.label"
       [matTooltipDisabled]="!isCollapsed"
       matTooltipPosition="right"
-      class="flex items-center px-3 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-green-100 hover:text-gray-900"
+      class="flex items-center px-2 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-green-100 hover:text-gray-900"
     >
       <mat-icon class="flex-shrink-0">{{ item.icon }}</mat-icon>
 
@@ -46,7 +46,7 @@
       [matTooltip]="'lorem'"
       [matTooltipDisabled]="!isCollapsed"
       matTooltipPosition="right"
-      class="flex items-center px-3 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-gray-100 hover:text-gray-900"
+      class="flex items-center px-2 py-3 text-gray-400 no-underline rounded-lg transition-colors duration-900 ease cursor-pointer hover:bg-gray-100 hover:text-gray-900"
     >
       <mat-icon class="flex-shrink-0">{{ item.icon }}</mat-icon>
 
@@ -57,7 +57,7 @@
     }
   </div>
 
-  <button class="p-3 flex justify-between items-center">
+  <button class="px-2 py-3 flex justify-between items-center">
     <div class="flex items-center">
       <div class="rounded-full flex items-center flex-shrink-0">
         <mat-icon class="text-2xl">account_circle</mat-icon>

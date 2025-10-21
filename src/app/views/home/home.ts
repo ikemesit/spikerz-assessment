@@ -13,6 +13,32 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './home.scss',
 })
 export class Home {
+  midColumnDataa = [
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: '10/19/2017',
+    },
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: 'Ut',
+    },
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: 'Yes',
+    },
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: 'Sit',
+    },
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: 'Lorem Ipsum Dolor',
+    },
+    {
+      key: 'Lorem Ipsum Dolor',
+      value: 'Lorem Ipsum Dolor',
+    },
+  ];
   constructor(public serverInfoStore: ServerInfoStore) {
     this.serverInfoStore.load();
   }
