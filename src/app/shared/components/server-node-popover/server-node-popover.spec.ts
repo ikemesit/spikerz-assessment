@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Diagram } from './diagram';
+import { ServerNodePopover } from './server-node-popover';
 
-describe('Diagram', () => {
-  let component: Diagram;
-  let fixture: ComponentFixture<Diagram>;
+describe('ServerNodePopover', () => {
+  let component: ServerNodePopover;
+  let fixture: ComponentFixture<ServerNodePopover>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Diagram]
+      imports: [ServerNodePopover]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Diagram);
+    fixture = TestBed.createComponent(ServerNodePopover);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
