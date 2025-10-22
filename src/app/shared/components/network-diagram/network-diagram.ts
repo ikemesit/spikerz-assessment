@@ -1,15 +1,9 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  inject,
-  viewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, ElementRef, inject, viewChild, ViewEncapsulation } from '@angular/core';
 import * as go from 'gojs';
 import { DiagramComponent } from 'gojs-angular';
 import { NodeLayout } from '../../enums/node-layout.enum';
 import { PopoverService } from '../../../core/services/pop-over/pop-over';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-network-diagram',
