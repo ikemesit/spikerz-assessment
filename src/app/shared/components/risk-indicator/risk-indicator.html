@@ -1,0 +1,17 @@
+@if (severity() == SeverityType.Low ) {
+<span class="inline-block px-6 py-2 rounded-full text-green-600 font-semibold bg-green-50">
+  {{ severity() }}
+</span>
+} @else if (severity() == SeverityType.Medium) {
+<span class="inline-block px-6 py-2 rounded-full text-blue-600 font-semibold bg-blue-50">
+  {{ severity() }}
+</span>
+} @else if (severity() == SeverityType.High) {
+<span class="inline-block px-6 py-2 rounded-full text-amber-600 font-semibold bg-amber-50">
+  {{ severity() }}
+</span>
+} @else if (severity() == SeverityType.Critical) {
+<span class="inline-block px-6 py-2 rounded-full text-red-600 font-semibold bg-red-50">
+  {{ severity() }}
+</span>
+}

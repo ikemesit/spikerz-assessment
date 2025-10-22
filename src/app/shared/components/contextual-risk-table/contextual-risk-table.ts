@@ -1,16 +1,17 @@
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
-import { AssetRisk } from '../../interfaces/asset-risk.interface';
-import { AssetRiskStore } from '../../../core/stores/asset-risk';
+import { ContextualRisk } from '../../interfaces/contextual-risk.interface';
+import { ContextualRiskStore } from '../../../core/stores/contextual-risk';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RiskIndicator } from '../risk-indicator/risk-indicator';
 import { MAX_ITEMS_PER_TABLE } from '../../../app.constants';
 
 @Component({
-  selector: 'app-asset-risk-table',
+  selector: 'app-contextual-risk-table',
   imports: [
     CommonModule,
     MatTableModule,
@@ -18,14 +19,16 @@ import { MAX_ITEMS_PER_TABLE } from '../../../app.constants';
     MatIconModule,
     MatTabsModule,
     MatProgressSpinner,
+    MatIcon,
+    RiskIndicator,
   ],
-  templateUrl: './asset-risk-table.html',
-  styleUrl: './asset-risk-table.scss',
+  templateUrl: './contextual-risk-table.html',
+  styleUrl: './contextual-risk-table.scss',
 })
-export class AssetRiskTable {
-  displayedColumns: string[] = ['icon', 'asset', 'risk'];
+export class ContextualRiskTable {
+  displayedColumns: string[] = ['icon', 'context', 'severity'];
 
-  dataSource = signal<AssetRisk[]>([]);
+  dataSource = signal<ContextualRisk[]>([]);
   pageSize = signal(MAX_ITEMS_PER_TABLE);
   currentPage = signal(0);
 
@@ -39,7 +42,7 @@ export class AssetRiskTable {
     return this.store.items().slice(start, end);
   };
 
-  constructor(public store: AssetRiskStore) {
+  constructor(public store: ContextualRiskStore) {
     this.dataSource.set(this.store.items());
     this.store.load();
   }
