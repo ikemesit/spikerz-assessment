@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  output,
+  inject,
   viewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -12,45 +12,51 @@ import { NodeLayout } from '../../enums/node-layout.enum';
 import { PopoverService } from '../../../core/services/pop-over/pop-over';
 
 @Component({
-  selector: 'app-diagram',
+  selector: 'app-network-diagram',
   imports: [DiagramComponent],
-  templateUrl: './diagram.html',
-  styleUrl: './diagram.scss',
+  templateUrl: './network-diagram.html',
+  styleUrl: './network-diagram.scss',
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class Diagram implements AfterViewInit {
+export class NetworkDiagram {
   renderedDia = viewChild<ElementRef<HTMLElement>>('goDiagram');
+  popoverService = inject(PopoverService);
 
-  public state = {
+  state = {
     diagramNodeData: [
       {
         id: 'node1',
-        text: 'LoremIpsum',
-        color: 'lightblue',
+        text: 'Loremipsumm',
+        ip: '',
+        type: 'user',
         icon: 'icons/user.png',
       },
       {
         id: 'node2',
         text: 'LoremIpsum2',
-        color: 'orange',
+        ip: '',
+        type: 'server',
         icon: 'icons/server.png',
       },
       {
         id: 'node3',
         text: 'LoremIpsum3',
-        color: 'lightgreen',
+        ip: '',
+        type: 'server',
         icon: 'icons/server.png',
       },
       {
         id: 'node4',
         text: 'LoremIpsum4',
-        color: 'lightgreen',
+        ip: '192.168.1.1',
+        type: 'server-notification',
         icon: 'icons/server-with-notification.png',
       },
       {
         id: 'node5',
         text: 'LoremIpsum5',
-        color: 'lightgreen',
+        ip: '192.168.1.2',
+        type: 'server-notification',
         icon: 'icons/server-with-notification.png',
       },
     ],
@@ -64,13 +70,10 @@ export class Diagram implements AfterViewInit {
     skipsDiagramUpdate: false,
   };
 
-  public diagramDivClassName: string = 'myDiagramDiv';
-  public nodeclick = output<{ x: number; y: number; data?: any }>();
+  diagramDivClassName: string = 'myDiagramDiv';
 
-  ngAfterViewInit(): void {}
-
-  public initDiagram(): go.Diagram {
-    const dia = new go.Diagram({
+  initDiagram = () => {
+    const goDiagram = new go.Diagram({
       'undoManager.isEnabled': true,
       isReadOnly: true,
       layout: new go.TreeLayout({ angle: 0, layerSpacing: 35 }),
@@ -80,33 +83,9 @@ export class Diagram implements AfterViewInit {
       }),
     });
 
-    dia.nodeTemplate = new go.Node(NodeLayout.Vertical, {
+    goDiagram.nodeTemplate = new go.Node(NodeLayout.Vertical, {
       locationSpot: go.Spot.Center,
       movable: false,
-      click: (e: go.InputEvent, thisObj: go.GraphObject) => {
-        try {
-          const nodeData = thisObj?.position;
-          let clientX = 0;
-          let clientY = 0;
-
-          if (nodeData != null) {
-            clientX = nodeData.x;
-            clientY = nodeData.y;
-          } else {
-            const el = document.querySelector(`.${this.diagramDivClassName}`) as HTMLElement | null;
-            if (el) {
-              const r = el.getBoundingClientRect();
-              clientX = Math.round(r.left + r.width / 2);
-              clientY = Math.round(r.top + 20);
-            } else {
-              clientX = Math.round(window.innerWidth / 2);
-              clientY = Math.round(window.innerHeight / 2);
-            }
-          }
-        } catch (err) {
-          console.error('Error opening popover:', err);
-        }
-      },
     }).add(
       new go.Picture({
         width: 48,
@@ -115,21 +94,34 @@ export class Diagram implements AfterViewInit {
         imageStretch: go.ImageStretch.Uniform,
         background: 'transparent',
       }).bind('source', 'icon'),
-      new go.TextBlock({ margin: 8, editable: false }).bindTwoWay('text', 'text')
+      new go.TextBlock({ margin: 2, editable: false }).bindTwoWay('text', 'text'),
+      new go.TextBlock({ margin: 2, editable: false }).bindTwoWay('text', 'ip')
     );
 
-    dia.linkTemplate = new go.Link({ routing: go.Routing.Orthogonal, corner: 5 }).add(
-      new go.Shape({ strokeWidth: 1, stroke: '#555' }),
+    goDiagram.linkTemplate = new go.Link({ routing: go.Routing.Orthogonal, corner: 5 }).add(
+      new go.Shape({ strokeWidth: 1, stroke: '#333' }),
       new go.Shape({ toArrow: 'Standard', strokeWidth: 0 })
     );
 
-    dia.allowMove = false;
-    dia.autoScale = go.AutoScale.Uniform;
+    goDiagram.allowMove = false;
+    goDiagram.autoScale = go.AutoScale.UniformToFill;
 
-    return dia;
-  }
+    goDiagram.addDiagramListener('ObjectSingleClicked', (e: go.DiagramEvent) => {
+      const part = e.subject.part as go.Node;
+      if (!part) return;
+      const data = part.data;
 
-  public diagramModelChange = function (changes: go.IncrementalData) {
-    console.log(changes);
+      const vp = e.diagram.lastInput.viewPoint;
+      const rect = (e.diagram.div as HTMLDivElement).getBoundingClientRect();
+      const client = { x: Math.round(rect.left + vp.x), y: Math.round(rect.top + vp.y) };
+
+      this.popoverService.openAt({ x: client.x, y: client.y }, data);
+    });
+
+    return goDiagram;
   };
+
+  diagramModelChange(changes: go.IncrementalData) {
+    console.log(changes);
+  }
 }

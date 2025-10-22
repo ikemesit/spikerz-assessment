@@ -1,20 +1,32 @@
 import { Injectable, inject } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Popover } from '../../../shared/components/popover/popover';
+import { DiagramNode } from '../../../shared/interfaces/diagram-node.interface';
+import { UserNodePopover } from '../../../shared/components/user-node-popover/user-node-popover';
+import { ServerNodePopover } from '../../../shared/components/server-node-popover/server-node-popover';
+import { ServerNotificationNodePopover } from '../../../shared/components/server-notification-node-popover/server-notification-node-popover';
 
 @Injectable({ providedIn: 'root' })
 export class PopoverService {
   private readonly overlay = inject(Overlay);
 
-  openAt(position: { x: number; y: number }, data?: any): OverlayRef {
+  openAt(position: { x: number; y: number }, data?: DiagramNode): OverlayRef {
     console.log(position);
+    console.log(data?.type);
 
     const posStrat = this.overlay
       .position()
-      .global()
-      .left(`${Math.round(position.x)}px`)
-      .top(`${Math.round(position.y)}px`);
+      .flexibleConnectedTo(position)
+      .withPositions([
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'center',
+          overlayY: 'top',
+        },
+      ])
+      .withPush(false)
+      .withViewportMargin(50);
 
     const overlayRef = this.overlay.create({
       hasBackdrop: true,
@@ -25,10 +37,17 @@ export class PopoverService {
       minWidth: 180,
     });
 
-    const portal = new ComponentPortal(Popover);
-    const compRef = overlayRef.attach(portal);
+    let portal;
 
-    compRef.instance.data = data;
+    if (data?.type === 'user') {
+      portal = new ComponentPortal(UserNodePopover);
+    } else if (data?.type === 'server') {
+      portal = new ComponentPortal(ServerNodePopover);
+    } else if (data?.type === 'server-notification') {
+      portal = new ComponentPortal(ServerNotificationNodePopover);
+    }
+
+    const compRef = overlayRef.attach(portal);
 
     const subClose = compRef.instance.close.subscribe(() => {
       overlayRef.dispose();

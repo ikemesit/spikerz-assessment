@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Diagram } from './diagram';
+import { NetworkDiagram } from './network-diagram';
 
 describe('Diagram', () => {
-  let component: Diagram;
-  let fixture: ComponentFixture<Diagram>;
+  let component: NetworkDiagram;
+  let fixture: ComponentFixture<NetworkDiagram>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Diagram]
-    })
-    .compileComponents();
+      imports: [NetworkDiagram],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Diagram);
+    fixture = TestBed.createComponent(NetworkDiagram);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
