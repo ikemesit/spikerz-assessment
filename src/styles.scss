@@ -2,6 +2,14 @@
 @use 'tailwindcss';
 @use 'styles/tokens' as tokens;
 
+:root {
+  @include mat.table-overrides(
+    (
+      background-color: var(--color-white),
+    )
+  );
+}
+
 html {
   @include mat.theme(
     (
