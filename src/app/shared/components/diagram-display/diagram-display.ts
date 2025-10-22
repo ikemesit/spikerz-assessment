@@ -4,6 +4,7 @@ import { ContextualRiskChart } from '../contextual-risk-chart/contextual-risk-ch
 import { AssetRiskTable } from '../asset-risk-table/asset-risk-table';
 import { RiskAnalysisTables } from '../risk-analysis-tables/risk-analysis-tables';
 import { ContextualRiskTable } from '../contextual-risk-table/contextual-risk-table';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-diagram-display',
@@ -13,6 +14,7 @@ import { ContextualRiskTable } from '../contextual-risk-table/contextual-risk-ta
     AssetRiskTable,
     RiskAnalysisTables,
     ContextualRiskTable,
+    NgOptimizedImage,
   ],
   templateUrl: './diagram-display.html',
   styleUrl: './diagram-display.scss',
