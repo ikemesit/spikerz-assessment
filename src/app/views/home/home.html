@@ -1,6 +1,8 @@
-<div class="w-full flex gap-4">
-  <div class="w-140 rounded-lg flex flex-col bg-white overflow-hidden h-screen">
-    <div class="flex-1 overflow-y-auto px-6 py-4">
+<div class="flex flex-col md:flex-row gap-4">
+  <div
+    class="order-last md:order-first w-full md:w-4/12 rounded-lg flex flex-col bg-white overflow-y-auto md:overflow-y-hidden h-screen"
+  >
+    <div class="flex-1 overflow-y-auto p-6">
       <div class="py-5">
         <h4 class="text-xl font-bold text-green-600 m-0">Description</h4>
         <p class="text-sm text-gray-500 m-0 mt-1">
@@ -19,6 +21,19 @@
         </p>
       </div>
 
+      <div class="border-y b-2 border-gray-200 flex flex-col gap-4 my-4 py-4">
+        @for (item of midColumnDataa; track $index) {
+        <div class="w-full flex gap-4">
+          <span class="font-semibold">
+            {{ item.key }}
+          </span>
+          <span class="">
+            {{ item.value }}
+          </span>
+        </div>
+        }
+      </div>
+
       @if(serverInfoStore.loading()) {
       <div class="w-full flex justify-center items-center py-10 min-h-60">
         <mat-progress-spinner
@@ -28,7 +43,10 @@
         ></mat-progress-spinner>
         <span class="text-sm text-gray-500 ml-2">Loading...</span>
       </div>
-      } @else { @for (item of serverInfoStore.items(); track $index) {
+      } @else {
+      <h4 class="font-semibold my-4">Lorem Ipsum Dolor Sit</h4>
+
+      @for (item of serverInfoStore.items(); track $index) {
       <div class="flex flex-col gap-4">
         <app-server-info-panel [item]="item"></app-server-info-panel>
       </div>
@@ -37,5 +55,7 @@
     </div>
   </div>
 
-  <app-diagram-display></app-diagram-display>
+  <div class="order-first md:order-last w-full md:w-8/12">
+    <app-diagram-display></app-diagram-display>
+  </div>
 </div>

@@ -1,0 +1,12 @@
+<div class="container mx-auto max-w-4xl">
+  <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+    <mat-tab-group class="custom-tabs">
+      <mat-tab label="Asset">
+        <ng-content select="app-asset-risk-table"></ng-content>
+      </mat-tab>
+      <mat-tab label="Contextual Risk">
+        <ng-content select="app-contextual-risk-table"></ng-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,7 +1,5 @@
-<div
-  class="w-180 rounded-lg bg-white border-l border-gray-200 flex flex-col flex-shrink-0 overflow-hidden"
->
-  <div class="px-6 py-2 border-b border-gray-200 bg-white">
+<div class="w-full rounded-lg bg-white flex flex-col flex-shrink-0 overflow-hidden p-6">
+  <div class="py-2">
     <h2 class="text-xl font-bold text-green-600 m-0">Lorem Lorem Lorem</h2>
   </div>
 
@@ -12,10 +10,13 @@
       <div class="col-span-2">
         <h3 class="text-lg font-semibold text-green-600">Lorem ipsum dolor sit</h3>
       </div>
-      <div class="col-span-1">
-        <app-asset-risk-table></app-asset-risk-table>
+      <div class="col-span-2 md:col-span-1">
+        <app-risk-analysis-tables>
+          <app-asset-risk-table></app-asset-risk-table>
+          <app-contextual-risk-table></app-contextual-risk-table>
+        </app-risk-analysis-tables>
       </div>
-      <div class="col-span-1">
+      <div class="col-span-2 md:col-span-1">
         <app-contextual-risk-chart></app-contextual-risk-chart>
       </div>
     </div>

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "ctx-001",
+    "name": "Multiple Failed Logins",
+    "description": "Repeated failed login attempts from the same IP.",
+    "source": "user",
+    "affectedAssetIds": ["asset-101"],
+    "severity": "high",
+    "score": 82,
+    "firstObserved": "2025-10-20T08:12:00Z",
+    "lastObserved": "2025-10-20T08:45:00Z",
+    "confidence": 0.85,
+    "mitigations": ["Force password reset", "Block source IP"],
+    "tags": ["auth", "brute-force"],
+    "status": "investigating"
+  },
+  {
+    "id": "ctx-002",
+    "name": "Unusual Outbound Traffic",
+    "source": "network",
+    "affectedAssetIds": ["asset-103", "asset-104"],
+    "severity": "critical",
+    "score": 95,
+    "firstObserved": "2025-10-19T16:30:00Z",
+    "lastObserved": "2025-10-20T09:00:00Z",
+    "confidence": 0.92,
+    "mitigations": ["Isolate hosts", "Run forensic scan"],
+    "tags": ["data-exfiltration", "network"],
+    "status": "open"
+  },
+  {
+    "id": "ctx-003",
+    "name": "Outdated TLS Version Detected",
+    "source": "application",
+    "affectedAssetIds": ["asset-107"],
+    "severity": "medium",
+    "score": 58,
+    "firstObserved": "2025-09-01T12:00:00Z",
+    "confidence": 0.6,
+    "mitigations": ["Upgrade TLS configuration"],
+    "tags": ["compliance", "tls"],
+    "status": "mitigated"
+  },
+  {
+    "id": "ctx-004",
+    "name": "Outdated TLS Version Detected",
+    "source": "application",
+    "affectedAssetIds": ["asset-21"],
+    "severity": "low",
+    "score": 22,
+    "firstObserved": "2025-10-14T12:00:00Z",
+    "confidence": 0.6,
+    "mitigations": ["Upgrade TLS configuration"],
+    "tags": ["compliance", "tls"],
+    "status": "mitigated"
+  }
+]
