@@ -1,7 +1,15 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  output,
+  viewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import * as go from 'gojs';
-import { DataSyncService, DiagramComponent } from 'gojs-angular';
+import { DiagramComponent } from 'gojs-angular';
 import { NodeLayout } from '../../enums/node-layout.enum';
+import { PopoverService } from '../../../core/services/pop-over/pop-over';
 
 @Component({
   selector: 'app-diagram',
@@ -10,7 +18,9 @@ import { NodeLayout } from '../../enums/node-layout.enum';
   styleUrl: './diagram.scss',
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class Diagram {
+export class Diagram implements AfterViewInit {
+  renderedDia = viewChild<ElementRef<HTMLElement>>('goDiagram');
+
   public state = {
     diagramNodeData: [
       {
@@ -55,6 +65,9 @@ export class Diagram {
   };
 
   public diagramDivClassName: string = 'myDiagramDiv';
+  public nodeclick = output<{ x: number; y: number; data?: any }>();
+
+  ngAfterViewInit(): void {}
 
   public initDiagram(): go.Diagram {
     const dia = new go.Diagram({
@@ -70,8 +83,30 @@ export class Diagram {
     dia.nodeTemplate = new go.Node(NodeLayout.Vertical, {
       locationSpot: go.Spot.Center,
       movable: false,
-      mouseHover: (e, obj) => console.log('hovered', obj),
-      mouseLeave: (e, obj) => console.log('left', obj),
+      click: (e: go.InputEvent, thisObj: go.GraphObject) => {
+        try {
+          const nodeData = thisObj?.position;
+          let clientX = 0;
+          let clientY = 0;
+
+          if (nodeData != null) {
+            clientX = nodeData.x;
+            clientY = nodeData.y;
+          } else {
+            const el = document.querySelector(`.${this.diagramDivClassName}`) as HTMLElement | null;
+            if (el) {
+              const r = el.getBoundingClientRect();
+              clientX = Math.round(r.left + r.width / 2);
+              clientY = Math.round(r.top + 20);
+            } else {
+              clientX = Math.round(window.innerWidth / 2);
+              clientY = Math.round(window.innerHeight / 2);
+            }
+          }
+        } catch (err) {
+          console.error('Error opening popover:', err);
+        }
+      },
     }).add(
       new go.Picture({
         width: 48,
@@ -87,6 +122,9 @@ export class Diagram {
       new go.Shape({ strokeWidth: 1, stroke: '#555' }),
       new go.Shape({ toArrow: 'Standard', strokeWidth: 0 })
     );
+
+    dia.allowMove = false;
+    dia.autoScale = go.AutoScale.Uniform;
 
     return dia;
   }

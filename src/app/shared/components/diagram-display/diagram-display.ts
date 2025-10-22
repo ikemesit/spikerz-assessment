@@ -9,4 +9,8 @@ import { AssetRiskTable } from '../asset-risk-table/asset-risk-table';
   templateUrl: './diagram-display.html',
   styleUrl: './diagram-display.scss',
 })
-export class DiagramDisplay {}
+export class DiagramDisplay {
+  logClick(event: { x: number; y: number; data?: any }) {
+    console.log(event);
+  }
+}

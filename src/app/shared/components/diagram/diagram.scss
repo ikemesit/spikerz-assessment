@@ -1,6 +1,5 @@
 .myDiagramDiv {
-  background: var(--color-surface-variant);
-  width: var(--size-diagram-width);
+  background-color: var(--color-gray-50);
   height: var(--size-diagram-height);
-  border: 1px solid black;
+  border-radius: var(--radius-lg);
 }

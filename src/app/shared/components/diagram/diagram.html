@@ -1,4 +1,4 @@
-<div id="diagram">
+<div id="diagram" class="w-full">
   <gojs-diagram
     [initDiagram]="initDiagram"
     [nodeDataArray]="state.diagramNodeData"
@@ -7,6 +7,7 @@
     [skipsDiagramUpdate]="state.skipsDiagramUpdate"
     (modelChange)="diagramModelChange($event)"
     [divClassName]="diagramDivClassName"
+    #goDiagram
   >
   </gojs-diagram>
 </div>
